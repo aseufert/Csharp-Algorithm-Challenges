@@ -1,60 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// A C# program to print intersection of two unsorted arrays 
+using System;
 
-namespace assignment_1_group_1
+class GFG
 {
-    class Program
+    // Prints intersection of arr1[0..m-1]  
+    // and arr2[0..n-1] 
+    static void printIntersection(int[] arr1,
+                                  int[] arr2,
+                                  int m, int n)
     {
-        static bool ContainsDuplicate(char[] arr, int k)
+        // Before finding intersection,  
+        // make sure arr1[0..m-1] is smaller 
+        if (m > n)
         {
-            // instantiate dictionary
-            Dictionary<char, int> data = new Dictionary<char, int>();
-            // for loop is O(n)
-            for (var i = 0; i < arr.Length; i++)
-            {
-                // try to add current char as key. set value to current index
-                bool added = data.TryAdd(arr[i], i);
-                // if current char wasn't added, check current array index against
-                // the value in the dictionary (i.e. previously seen)
-                if (!added)
-                {
-                    // first index value
-                    int firstVal = data[arr[i]];
-                    // current (i.e. second) index value
-                    int secondVal = i;
-                    // take absolute difference
-                    int absVal = Math.Abs(firstVal - secondVal);
-                    // check absVal is at most equal to k (i.e. <=)
-                    if (absVal <= k)
-                    {
-                        return true;
-                    }
-                    // set new value of latest index if conditional check fails
-                    // in case the result appears again (e.g. [k, a, k, k])
-                    data[arr[i]] = i;
-                }
-            }
+            int[] tempp = arr1;
+            arr1 = arr2;
+            arr2 = tempp;
 
-            return false;
+            int temp = m;
+            m = n;
+            n = temp;
         }
-        static void Main(string[] args)
+
+        // Now arr1[] is smaller 
+        // Sort smaller array arr1[0..m-1] 
+        Array.Sort(arr1);
+
+        // Search every element of bigger array in  
+        // smaller array and print the element if found 
+        for (int i = 0; i < n; i++)
         {
-            // QUESTION 6
-            // Example 1
-            char[] input = new char[] { 'a', 'g', 'h', 'a' };
-            int target = 3;
-            bool result = ContainsDuplicate(input, target);
-            Console.WriteLine("Question 6 Example 1: {0}", result);
-            // Example 2
-            char[] input2 = new char[] { 'k', 'y', 'k', 'k' };
-            int target2 = 1;
-            bool result2 = ContainsDuplicate(input2, target2);
-            Console.WriteLine("Question 6 Example 2: {0}", result2);
-            // Example 3
-            char[] input3 = new char[] { 'a', 'b', 'c', 'a', 'b', 'c' };
-            int target3 = 2;
-            bool result3 = ContainsDuplicate(input3, target3);
-            Console.WriteLine("Question 6 Example 3: {0}", result3);
+            if (binarySearch(arr1, 0, m - 1, arr2[i]) != -1)
+                Console.Write(arr2[i] + " ");
         }
+    }
+
+    // A recursive binary search function.  
+    // It returns location of x in given  
+    // array arr[l..r] is present, otherwise -1 
+    static int binarySearch(int[] arr, int l,
+                            int r, int x)
+    {
+        if (r >= l)
+        {
+            int mid = l + (r - l) / 2;
+
+            // If the element is present at 
+            // the middle itself 
+            if (arr[mid] == x)
+                return mid;
+
+            // If element is smaller than mid, then it  
+            // can only be present in left subarray 
+            if (arr[mid] > x)
+                return binarySearch(arr, l, mid - 1, x);
+
+            // Else the element can only be  
+            // present in right subarray 
+            return binarySearch(arr, mid + 1, r, x);
+        }
+
+        // We reach here when element is 
+        // not present in array 
+        return -1;
+    }
+
+    // Driver Code 
+    static public void Main()
+    {
+        int[] arr1 = { 2, 5, 5, 2};
+        int[] arr2 = { 5, 5 };
+        int m = arr1.Length;
+        int n = arr2.Length;
+        Console.WriteLine("");
+        Console.WriteLine("Intersection of two arrays is ");
+        printIntersection(arr1, arr2, m, n);
     }
 }
