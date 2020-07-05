@@ -5,51 +5,46 @@ namespace assignment_1_group_1
     class Program
     {
 
-public static int[] TargetRange(int[] marks, int target)
-{
-    int first = -1;
-    int last = -1;
-
-    for (int i = 0; i < marks.Length; i++)
-    {
-        if (marks[i] == target)
+        public static string StringReverse(string s)
         {
-            first = i;
-            break;
-        }
-    }
+            string reverse = "";
+            string temp = "";
 
-    for (int x = marks.Length - 1; x > -1; x--)
-    {
-        if (marks[x] == target)
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] != ' ')
+                {
+                    temp += s[i];
+                }
+                if (s[i] == ' ')
+                {
+
+                    for (int j = temp.Length - 1; j > -1; j--)
+                    {
+                        reverse += temp[j];
+                    }
+                    reverse += " ";
+                    temp = "";
+                }
+            }
+            return reverse;
+
+        }
+
+
+
+
+
+        static void Main(string[] args)
         {
-            last = x;
-            break;
+
+            // *QUESTION 2
+            string str = StringReverse("University of South Florida");
+            Console.WriteLine(str);
+            Console.ReadLine();
+
+
         }
-
-    }
-
-    int[] trange = new int[] { first, last };
-    return trange;
-}
-
-
-
-
-static void Main(string[] args)
-{
-    
-    // *QUESTION 1
-    //make variables for inputs
-    int[] m = new int[] { 5, 6, 6, 9, 9, 12};
-    int t = 10;
-    //make variable for output result
-    int[] result = TargetRange(m, t) ;
-    //print output of function
-    Console.WriteLine($"[{result[0]},{result[1]}]");
-    Console.ReadLine();
-
-}
 
     }
   }
