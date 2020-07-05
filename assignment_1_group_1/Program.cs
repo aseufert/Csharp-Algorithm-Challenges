@@ -5,6 +5,30 @@ namespace assignment_1_group_1
 {
     class Program
     {
+        static string StringReverse(string s)
+        {
+            LinkedList<string> final = new LinkedList<string>();
+            string currentWord = "";
+            // single for loop is O(n)
+            for (var i = s.Length; i > 0; i--)
+            {
+                char value = s[i - 1];
+                if (value == ' ')
+                {
+                    // linked list AddFirst is O(1)
+                    final.AddFirst(currentWord);
+                    currentWord = "";
+                } else
+                {
+                    // string appending is O(1)
+                    currentWord += value;
+                }
+            }
+            final.AddFirst(currentWord);
+
+            return string.Join(" ", final);
+        }
+      
         static bool ContainsDuplicate(char[] arr, int k)
         {
             // instantiate dictionary
@@ -37,8 +61,12 @@ namespace assignment_1_group_1
 
             return false;
         }
+      
         static void Main(string[] args)
         {
+            // QUESTION 2
+            string msg = StringReverse("University of South Florida");
+            Console.WriteLine("Question 2 Output: {0}", msg);
             // QUESTION 6
             // Example 1
             char[] input = new char[] { 'a', 'g', 'h', 'a' };
