@@ -5,31 +5,31 @@ namespace assignment_1_group_1
     class Program
     {
 
-        public static string StringReverse(string s)
+        public static int minSum(int[] arr)
         {
-            string reverse = "";
-            string temp = "";
-
-            for (int i = 0; i < s.Length; i++)
+            int aSum = arr[0];
+            for (int i = 0; i < arr.Length - 1; i++)
             {
-                if (s[i] != ' ')
-                {
-                    temp += s[i];
-                }
-                if (s[i] == ' ')
-                {
 
-                    for (int j = temp.Length - 1; j > -1; j--)
-                    {
-                        reverse += temp[j];
-                    }
-                    reverse += " ";
-                    temp = "";
+                if (arr[i] != arr[i + 1])
+                {
+                    aSum += arr[i + 1];
+                }
+                else
+                {
+                    arr[i + 1] += 1;
+                    aSum += arr[i + 1];
+
+                }
+                if (i == arr.Length - 1)
+                {
+                    aSum += arr[arr.Length];
                 }
             }
-            return reverse;
 
+            return aSum;
         }
+
 
 
 
@@ -38,10 +38,12 @@ namespace assignment_1_group_1
         static void Main(string[] args)
         {
 
-            // *QUESTION 2
-            string str = StringReverse("University of South Florida");
-            Console.WriteLine(str);
+            // *QUESTION 3
+            int[] arr1 = new int[] { 4, 5, 6, 9 };
+            int a = minSum(arr1);
+            Console.WriteLine(a);
             Console.ReadLine();
+
 
 
         }
