@@ -1,60 +1,47 @@
-﻿using System;
+﻿// C# program to find intersection using Hashing 
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
-namespace assignment_1_group_1
+class GFG
 {
-    class Program
-    {
-        static bool ContainsDuplicate(char[] arr, int k)
-        {
-            // instantiate dictionary
-            Dictionary<char, int> data = new Dictionary<char, int>();
-            // for loop is O(n)
-            for (var i = 0; i < arr.Length; i++)
-            {
-                // try to add current char as key. set value to current index
-                bool added = data.TryAdd(arr[i], i);
-                // if current char wasn't added, check current array index against
-                // the value in the dictionary (i.e. previously seen)
-                if (!added)
-                {
-                    // first index value
-                    int firstVal = data[arr[i]];
-                    // current (i.e. second) index value
-                    int secondVal = i;
-                    // take absolute difference
-                    int absVal = Math.Abs(firstVal - secondVal);
-                    // check absVal is at most equal to k (i.e. <=)
-                    if (absVal <= k)
-                    {
-                        return true;
-                    }
-                    // set new value of latest index if conditional check fails
-                    // in case the result appears again (e.g. [k, a, k, k])
-                    data[arr[i]] = i;
-                }
-            }
 
-            return false;
-        }
-        static void Main(string[] args)
+    // Prints intersection of nums1[0..m-1] and nums2[0..n-1] 
+    static void Intersect1(int[] nums1, int[] nums2)
+    {
+        int[] arrlong;
+        int[] arrshort;
+
+        if (nums1.Length >= nums2.Length)
         {
-            // QUESTION 6
-            // Example 1
-            char[] input = new char[] { 'a', 'g', 'h', 'a' };
-            int target = 3;
-            bool result = ContainsDuplicate(input, target);
-            Console.WriteLine("Question 6 Example 1: {0}", result);
-            // Example 2
-            char[] input2 = new char[] { 'k', 'y', 'k', 'k' };
-            int target2 = 1;
-            bool result2 = ContainsDuplicate(input2, target2);
-            Console.WriteLine("Question 6 Example 2: {0}", result2);
-            // Example 3
-            char[] input3 = new char[] { 'a', 'b', 'c', 'a', 'b', 'c' };
-            int target3 = 2;
-            bool result3 = ContainsDuplicate(input3, target3);
-            Console.WriteLine("Question 6 Example 3: {0}", result3);
+            arrlong = nums1;
+            arrshort = nums2;
         }
+
+        else
+        {
+            arrlong = nums2;
+            arrshort = nums1;
+        }
+
+        HashSet<int> hs = new HashSet<int>();
+
+        for (int i = 0; i < arrlong.Length; i++)
+            hs.Add(arrlong[i]);
+
+        for (int i = 0; i < arrshort.Length; i++)
+            if (hs.Contains(arrshort[i]))
+                Console.Write(arrshort[i] + " ");
+    }
+
+    // Driver Code 
+    static void Main()
+    {
+        int[] nums1 = { 3, 6, 2 };
+        int[] nums2 = { 6, 3, 6, 7, 3 };
+
+        Console.WriteLine("\nIntersection of two arrays is : ");
+        Intersect1(nums1, nums2);
     }
 }
+© 2020 GitHub, Inc.
