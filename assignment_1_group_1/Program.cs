@@ -1,4 +1,5 @@
-﻿using System;
+
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -6,6 +7,33 @@ namespace assignment_1_group_1
 {
     class Program
     {
+    // Prints intersection of nums1[0..m-1] and nums2[0..n-1] 
+    static void Intersect2(int[] nums1, int[] nums2)
+    {
+        int[] arrlong;
+        int[] arrshort;
+
+        if (nums1.Length >= nums2.Length)
+        {
+            arrlong = nums1;
+            arrshort = nums2;
+        }
+
+        else
+        {
+            arrlong = nums2;
+            arrshort = nums1;
+        }
+
+        HashSet<int> hs = new HashSet<int>();
+
+        for (int i = 0; i < arrlong.Length; i++)
+            hs.Add(arrlong[i]);
+
+        for (int i = 0; i < arrshort.Length; i++)
+            if (hs.Contains(arrshort[i]))
+                Console.Write(arrshort[i] + " ");
+    }
         static int calculatePivot(int first, int last)
         {
             // calculates midpoint of two points
@@ -228,8 +256,6 @@ namespace assignment_1_group_1
             // QUESTION 4
             question_four();
           
-          
-          
             // QUESTION 5 - Part A
             // Scenario 1
             int[] nums1 = { 2, 5, 5, 2 };
@@ -247,6 +273,13 @@ namespace assignment_1_group_1
             {
                 Console.WriteLine(result);
             }
+          
+            // QUESTION 5 - Part B
+            int[] nums1b = { 3, 6, 2 };
+            int[] nums2b = { 6, 3, 6, 7, 3 };
+
+            Console.WriteLine("\nIntersection of two arrays is : ");
+            Intersect1(nums1b, nums2b);
 
             // QUESTION 6
             // Example 1
@@ -265,5 +298,4 @@ namespace assignment_1_group_1
             bool result3 = ContainsDuplicate(input3, target3);
             Console.WriteLine("Question 6 Example 3: {0}", result3);
         }
-    }
 }
