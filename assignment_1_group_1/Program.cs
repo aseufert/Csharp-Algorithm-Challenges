@@ -7,33 +7,36 @@ namespace assignment_1_group_1
 {
     class Program
     {
-    // Prints intersection of nums1[0..m-1] and nums2[0..n-1] 
-    static void Intersect2(int[] nums1, int[] nums2)
-    {
-        int[] arrlong;
-        int[] arrshort;
-
-        if (nums1.Length >= nums2.Length)
+        // Prints intersection of nums1[0..m-1] and nums2[0..n-1] 
+        static int[] Intersect2(int[] nums1, int[] nums2)
         {
-            arrlong = nums1;
-            arrshort = nums2;
+            int[] arrlong;
+            int[] arrshort;
+
+            if (nums1.Length >= nums2.Length)
+            {
+                arrlong = nums1;
+                arrshort = nums2;
+            }
+
+            else
+            {
+                arrlong = nums2;
+                arrshort = nums1;
+            }
+
+            HashSet<int> hs = new HashSet<int>();
+
+            for (int i = 0; i < arrlong.Length; i++)
+                hs.Add(arrlong[i]);
+
+            for (int i = 0; i < arrshort.Length; i++)
+                if (hs.Contains(arrshort[i]))
+                    Console.WriteLine(arrshort[i]);
+
+            return arrshort;
         }
 
-        else
-        {
-            arrlong = nums2;
-            arrshort = nums1;
-        }
-
-        HashSet<int> hs = new HashSet<int>();
-
-        for (int i = 0; i < arrlong.Length; i++)
-            hs.Add(arrlong[i]);
-
-        for (int i = 0; i < arrshort.Length; i++)
-            if (hs.Contains(arrshort[i]))
-                Console.Write(arrshort[i] + " ");
-    }
         static int calculatePivot(int first, int last)
         {
             // calculates midpoint of two points
@@ -41,8 +44,8 @@ namespace assignment_1_group_1
             return sum / 2;
         }
 
-        /// Use pivot point to split index on a portion of the array 
-        static int binarySearch(int target, int[] data, int firstIndex=0, int lastIndex=0, bool initialAttempt=true)
+        // Use pivot point to split index on a portion of the array 
+        static int binarySearch(int target, int[] data, int firstIndex = 0, int lastIndex = 0, bool initialAttempt = true)
         {
             // exit condition if value not found
             if (lastIndex <= -1)
@@ -71,12 +74,14 @@ namespace assignment_1_group_1
             // and pass as the last index value
             else if (target < data[pivot])
             {
+                // recursive function call
                 return binarySearch(target, data, firstIndex, pivot - 1, false);
             }
             // if target > value at pivot point, increment pivot as the
             // first value pass index as last
             else
             {
+                // recursive function call
                 return binarySearch(target, data, pivot + 1, last, false);
             }
 
@@ -109,19 +114,19 @@ namespace assignment_1_group_1
             // convert linked list to array to conform to the method signature
             return final.ToArray();
         }
-        static void question_four()
+
+        static string FreqSort(string s)
         {
-            Console.WriteLine("Input string:");
-            string input = Console.ReadLine();
             // iniitialize objects
             Dictionary<char, int> data = new Dictionary<char, int>();
             string output = "";
 
-            foreach (char c in input)
+            foreach (char c in s)
             {
                 bool added = data.TryAdd(c, 1);
                 // increment on conflict
-                if (!added) {
+                if (!added)
+                {
                     data[c] += 1;
                 }
             }
@@ -129,11 +134,11 @@ namespace assignment_1_group_1
             {
                 // creates new string for each char based on value count
                 // and appends to output string
-                output += new string(pair.Key, pair.Value); 
+                output += new string(pair.Key, pair.Value);
             }
-            Console.WriteLine(output);
+            return output;
         }
-      
+
         static int minSum(int[] arr)
         {
             // initialize total variable that will hold sum
@@ -155,7 +160,7 @@ namespace assignment_1_group_1
 
             return total;
         }
-      
+
         static int[] targetRange(int[] marks, int target)
         {
             // initialize found array with {-1,-1}
@@ -177,9 +182,10 @@ namespace assignment_1_group_1
             }
             return found;
         }
-      
+
         static string StringReverse(string s)
         {
+            // initialize linked list to hold values
             LinkedList<string> final = new LinkedList<string>();
             string currentWord = "";
             // single for loop is O(n)
@@ -191,7 +197,8 @@ namespace assignment_1_group_1
                     // linked list AddFirst is O(1)
                     final.AddFirst(currentWord);
                     currentWord = "";
-                } else
+                }
+                else
                 {
                     // string appending is O(1)
                     currentWord += value;
@@ -201,7 +208,7 @@ namespace assignment_1_group_1
 
             return string.Join(" ", final);
         }
-      
+
         static bool ContainsDuplicate(char[] arr, int k)
         {
             // instantiate dictionary
@@ -234,68 +241,100 @@ namespace assignment_1_group_1
 
             return false;
         }
-      
+
         static void Main(string[] args)
         {
             // Question One
+            // Input 1
+            Console.WriteLine("Question 1");
             int[] marks = { 5, 6, 6, 9, 9, 12 };
-            int target = 12;
+            int target = 9;
             int[] success = targetRange(marks, target);
-            Console.WriteLine("Question 1 Answer:");
-            Console.WriteLine("First {0} and Last {1}", success[0], success[1]);
+            Console.WriteLine("Output: [{0}]", string.Join(",", success));
+            // input 2
+            int[] marks2 = { 5, 6, 6, 9, 9, 12 };
+            int target2 = 10;
+            int[] success2 = targetRange(marks2, target2);
+            Console.WriteLine("Output: [{0}]", string.Join(",", success2));
 
             // QUESTION 2
+            Console.WriteLine("\nQuestion 2");
             string msg = StringReverse("University of South Florida");
-            Console.WriteLine("Question 2 Output: {0}", msg);
-            
+            Console.WriteLine("Output: {0}", msg);
+
             // QUESTION 3
-            int[] input = { 4, 5, 6, 9 };
-            int total = minSum(input);
-            Console.WriteLine("Question 3 output: {0}", total);
-          
+            // input 1
+            Console.WriteLine("\nQuestion 3");
+            int[] q3input1 = { 2, 2, 3, 5, 6 };
+            int q3result1 = minSum(q3input1);
+            Console.WriteLine("Output: {0}", q3result1);
+            // input 2
+            int[] q3input2 = { 40, 40 };
+            int q3result2 = minSum(q3input2);
+            Console.WriteLine("Output: {0}", q3result2);
+            // input 3
+            int[] q3input3 = { 4, 5, 6, 9 };
+            int q3result3 = minSum(q3input3);
+            Console.WriteLine("Output: {0}", q3result3);
+
             // QUESTION 4
-            question_four();
-          
+            Console.WriteLine("\nQuestion 4:");
+            string q4input1 = "Dell";
+            string q4result1 = FreqSort(q4input1);
+            Console.WriteLine("\nInput: {0}\nOutput {1}", q4input1, q4result1);
+            // input 2
+            string q4input2 = "eebhhh";
+            string q4result2 = FreqSort(q4input2);
+            Console.WriteLine("\nInput: {0}\nOutput {1}", q4input2, q4result2);
+            // input 3
+            string q4input3 = "yYkk";
+            string q4result3 = FreqSort(q4input3);
+            Console.WriteLine("\nInput: {0}\nOutput {1}", q4input3, q4result3);
+
             // QUESTION 5 - Part A
             // Scenario 1
+            Console.WriteLine("\nQuestion 5 Scenario 1 (n log n):");
             int[] nums1 = { 2, 5, 5, 2 };
             int[] nums2 = { 5, 5 };
-            int[] results = Intersect1(nums1, nums2);
-            foreach (int result in results)
-            {
-                Console.WriteLine(result);
-            }
-            //Scenario 2
+            int[] q5answers = Intersect1(nums1, nums2);
+            Console.WriteLine("Q5 Answer: [{0}]", string.Join(",", q5answers));
+
+            // Scenario 2
             int[] nums3 = { 3, 6, 2 };
             int[] nums4 = { 6, 3, 6, 7, 3 };
-            int[] results2 = Intersect1(nums3, nums4);
-            foreach (int result in results2)
-            {
-                Console.WriteLine(result);
-            }
-          
-            // QUESTION 5 - Part B
-            int[] nums1b = { 3, 6, 2 };
-            int[] nums2b = { 6, 3, 6, 7, 3 };
+            int[] q5answers2 = Intersect1(nums3, nums4);
+            Console.WriteLine("Q5 Answer: [{0}]", string.Join(",", q5answers2));
 
-            Console.WriteLine("\nIntersection of two arrays is : ");
-            Intersect1(nums1b, nums2b);
+            // QUESTION 5 - Part B
+            Console.WriteLine("\nQuestion 5 Scenario 2 (n):");
+            int[] nums1b = { 2, 5, 5, 2 };
+            int[] nums2b = { 5, 5 };
+            Intersect2(nums1b, nums2b);
+
+            // Scenario 2
+            int[] nums3b = { 3, 6, 2 };
+            int[] nums4b = { 6, 3, 6, 7, 3 };
+            Intersect2(nums3b, nums4b);
 
             // QUESTION 6
             // Example 1
-            char[] input = new char[] { 'a', 'g', 'h', 'a' };
-            int target = 3;
-            bool result = ContainsDuplicate(input, target);
+            Console.WriteLine("\nQuestion 6:");
+            char[] data = new char[] { 'a', 'g', 'h', 'a' };
+            int mark = 3;
+            bool result = ContainsDuplicate(data, mark);
             Console.WriteLine("Question 6 Example 1: {0}", result);
-            // Example 2
-            char[] input2 = new char[] { 'k', 'y', 'k', 'k' };
-            int target2 = 1;
-            bool result2 = ContainsDuplicate(input2, target2);
+
+            //// Example 2
+            char[] data2 = new char[] { 'k', 'y', 'k', 'k' };
+            int mark2 = 1;
+            bool result2 = ContainsDuplicate(data2, mark2);
             Console.WriteLine("Question 6 Example 2: {0}", result2);
-            // Example 3
-            char[] input3 = new char[] { 'a', 'b', 'c', 'a', 'b', 'c' };
-            int target3 = 2;
-            bool result3 = ContainsDuplicate(input3, target3);
+
+            //// Example 3
+            char[] data3 = new char[] { 'a', 'b', 'c', 'a', 'b', 'c' };
+            int mark3 = 2;
+            bool result3 = ContainsDuplicate(data3, mark3);
             Console.WriteLine("Question 6 Example 3: {0}", result3);
         }
+    }
 }

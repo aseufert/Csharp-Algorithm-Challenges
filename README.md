@@ -1,9 +1,11 @@
 # assigment_1_group_2
 
-### Contributors
+### Contributors - Group 2
+Deborah Gause
+Neeraj Kumar
+Alexander Seufert
+Sarah Wasselle
 
-1. Clone repo using URL: ```https://github.com/aseufert/assignment_1_group_2.git```
-2. Create new branch and switch to branch
-3. Add changes
-4. Commit changes when done
-5. Push to serve
+### Output
+
+![Assignment 1 Output](https://github.com/aseufert/assignment_1_group_2/blob/master/assignment_1_output.jpeg?raw=true)
