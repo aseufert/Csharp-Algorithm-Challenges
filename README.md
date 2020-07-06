@@ -1,4 +1,4 @@
-# assigment_1_group_2
+# Assignment 1
 
 ### Contributors - Group 2
 Deborah Gause
